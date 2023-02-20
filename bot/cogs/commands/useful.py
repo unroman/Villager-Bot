@@ -661,7 +661,9 @@ class Useful(commands.Cog):
             ctx.author.id,
             ctx.channel.id,
             ctx.message.id,
-            shorten_text(reminder, 500).replace("@everyone", "@\uFEFFeveryone").replace("@here", "@\uFEFFhere"),
+            shorten_text(reminder, 500)
+            .replace("@everyone", "@\uFEFFeveryone")
+            .replace("@here", "@\uFEFFhere"),
             at.datetime,
         )
         await ctx.reply_embed(
