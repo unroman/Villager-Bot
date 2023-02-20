@@ -661,7 +661,7 @@ class Useful(commands.Cog):
             ctx.author.id,
             ctx.channel.id,
             ctx.message.id,
-            reminder[:499].replace("@everyone", "@\uFEFFeveryone").replace("@here", "@\uFEFFhere"),
+            shorten_text(reminder, 500).replace("@everyone", "@\uFEFFeveryone").replace("@here", "@\uFEFFhere"),
             at.datetime,
         )
         await ctx.reply_embed(
@@ -671,21 +671,28 @@ class Useful(commands.Cog):
             )
         )
 
-    @commands.command(name="reminders")
+    @commands.command(name="reminders", aliases=["reminderlist"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def reminders_list(self, ctx: Ctx):
-        user_reminders = await self.db.fetch_user_reminders(ctx.author.id)
+        reminders = await self.db.fetch_user_reminders(ctx.author.id)
+
         embed = discord.Embed(color=self.bot.embed_color)
         embed.set_author(
-            name=f"{ctx.author.display_name}'s reminders", icon_url=ctx.author.avatar.url
+            name=f"{ctx.author.display_name}'s reminders",
+            icon_url=ctx.author.avatar.url,
         )
 
-        for reminder in user_reminders:
-            unix_timestamp = format_dt(reminder["at"], style="R")
-            reminder["reminder"] = shorten_text(reminder["reminder"], 75)
+        if not len(reminders):
+            embed.description = ctx.l.useful.remind.none
+            embed.set_footer(text=ctx.l.useful.remind.add.format(ctx.prefix))
+
+        for reminder in reminders:
             embed.add_field(
-                name=f"`#{reminder['id']}` - {unix_timestamp}", value=reminder["reminder"], inline=False
+                name=f"`#{reminder['id']}` - {format_dt(reminder['at'], style='R')}",
+                value=shorten_text(reminder["reminder"], 75),
+                inline=False,
             )
+
         await ctx.send(embed=embed)
 
     @commands.command(name="snipe")

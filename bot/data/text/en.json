@@ -128,7 +128,7 @@
         "exif": "`{0}exif` *extracts EXIF data from the specified image*",
         "imagetopng": "`{0}imagetopng *converts the uploaded/specified image to a png*",
         "translate": "`{0}translate <target> [text]` *translates the given text or message to the specified target language*",
-        "reminders": "`{0}reminders` *shows you all your current reminders*"
+        "reminders": "`{0}reminders` *shows you all your current reminders*",
       },
       "fun": {
         "cursed": "`{0}cursed` *sends a random cursed Minecraft image*",
@@ -1707,7 +1707,9 @@
         "stupid_1": "You used invalid formatting, example: `{0}remindme 1w2d3h4m this is an example` will remind you in one week, two days, three hours, and four minutes.",
         "time_max": "You cannot set a reminder more than eight weeks in advance.",
         "remind": "{0} reminding you {1}.",
-        "reminder": "{0}, you wanted me to remind you: *{1}*"
+        "reminder": "{0}, you wanted me to remind you: *{1}*",
+        "none": "*You have no reminders...*",
+        "add": "You can add reminders with {}remindme"
       },
       "credits": {
         "credits": "Villager Bot wouldn't be possible without...",
